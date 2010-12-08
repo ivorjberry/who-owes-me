@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE web-app
+<!-- <!DOCTYPE web-app
     PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
     "http://java.sun.com/dtd/web-app_2_3.dtd">
-
+-->
 <web-app>
   
   <!-- Servlets -->
   <servlet>
-    <servlet-name>greetServlet</servlet-name>
-    <servlet-class>whoowesme.server.GreetingServiceImpl</servlet-class>
+    <servlet-name>groceryServlet</servlet-name>
+    <servlet-class>whoowesme.GroceryServlet</servlet-class>
   </servlet>
   
   <servlet-mapping>
-    <servlet-name>greetServlet</servlet-name>
-    <url-pattern>/whoowesme/greet</url-pattern>
+    <servlet-name>groceryServlet</servlet-name>
+    <url-pattern>/addToGrocery</url-pattern>
   </servlet-mapping>
   
-  <!-- 
+  
   <security-constraint>
   	<web-resource-collection>
   		<web-resource-name>Application</web-resource-name>
@@ -26,7 +26,7 @@
   		<role-name>*</role-name>
   	</auth-constraint>
   </security-constraint>
-  -->
+ 
   <!-- Default page to serve -->
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
