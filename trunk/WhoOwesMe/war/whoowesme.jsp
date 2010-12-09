@@ -13,7 +13,7 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 		<link href="style.css" rel="stylesheet" type="text/css">
-		<title>Who Owes Me?</title>
+		<title>Who Owes Me?</title>		
 	</head>
 	<body>
 		<center>
@@ -56,7 +56,7 @@
 				<br><br>
 				<h2>GROCERY LIST</h2>
 				<form action="/addToGrocery" method="post">
-					<textarea name="list" rows="1" cols="60"></textarea><br>
+					<textarea name="msg" rows="1" cols="60"></textarea><br>
 					<input type="submit" value="Add to Grocery List">
 				</form>
 				
@@ -77,16 +77,25 @@
        			else{ 
        			%>
        				<p>
-       			<%
-       				for(Grocery g:groceryList){
-       			%>
-       					<%= g.getMsg() %> -- <%= g.getAuthor() %> <%= g.getDate()%> <br>
-					<%} %>
+	       				<table>
+	       				<tr><td width="1200"><b>Item</b></td><td width="200"><b>Who</b></td><td width="500"><b>When</b></td></tr>
+	       			<%
+	       				for(Grocery g:groceryList){
+	       			%>
+	       					<tr>
+	       					<td><%= g.getMsg() %></td><td><%= g.getAuthor().getNickname() %></td><td><%= g.getDate()%></td>
+							</tr>
+						<%} %>
+						</table>
        				</p>
+       				
        				
 				<%} %>
 				</div>
-			<%} %>
+				<form action="/emptyGrocery" method="post">
+					<input type="submit" value="Empty List">
+				</form>
+				<%} %>
 						
 		</center>
 	</body>
