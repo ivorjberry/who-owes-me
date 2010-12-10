@@ -16,6 +16,11 @@
     <servlet-class>whoowesme.GroceryEmptyList</servlet-class>
   </servlet>
   
+  <servlet>
+  	<servlet-name>houseServlet</servlet-name>
+  	<servlet-class>whoowesme.HouseServlet</servlet-class>
+  </servlet>
+  
   <servlet-mapping>
     <servlet-name>groceryServlet</servlet-name>
     <url-pattern>/addToGrocery</url-pattern>
@@ -23,6 +28,10 @@
   <servlet-mapping>
     <servlet-name>groceryEmptyServlet</servlet-name>
     <url-pattern>/emptyGrocery</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>houseServlet</servlet-name>
+  	<url-pattern>/addOwe</url-pattern>
   </servlet-mapping>
   
   

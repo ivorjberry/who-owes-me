@@ -13,12 +13,13 @@ import com.google.appengine.api.datastore.Key;
 
 @PersistenceCapable
 public class House {
+	int numPeople;
 	@PrimaryKey
 	@Persistent(valueStrategy= IdGeneratorStrategy.IDENTITY)
 	Key key;
 	
 	@Persistent	
-	Vector<Vector<Integer>> houseGrid;
+	Integer[][] houseGrid;
 	
 	@Persistent
 	List<User> housemates;
@@ -28,8 +29,11 @@ public class House {
 	
 	public House(String hn){
 		housename = hn;
+		numPeople = 0;
 	}
-	public void addHousemate(){}
+	public void addHousemate(){
+		numPeople++;
+	}
 	public void addBill(User user, User billed, Integer amt, String item){
 		
 		PersistenceManager pm = PMF.get().getPersistenceManager();
@@ -43,6 +47,24 @@ public class House {
                 txn.rollback();
             }
         }
+	}
+	
+	class Bill{
+		String PersonOwed;
+		String PersonOwes;
+		int amount;
+		Bill(String Owed, String Owes, int amt)
+		{
+			PersonOwed = Owed;
+			PersonOwes = Owes;
+			amount = amt;
+		}
+		
+		void addAmt(int amt)
+		{
+			amount += amt;
+		}
+		
 	}
 	
 
