@@ -45,13 +45,22 @@
 				</p>
 				
 				<h2>SUBMIT BILL</h2>
-				<form action="/updateOwe" method="post">
+				<form action="/addOwe" method="post">
 					Amount---->	<input type="text" name="amount"><br>
 					Who------->	<input select name="dropdown"><br>
 					What For-->	<input type="text" name="itemName"><br>
 						
-					<input type="submit" value="Submit">
+					<input type="submit" value="Submit Bill">
 				</form>
+				
+				<!--  Need to add display of bills here 
+					Maybe should be just a list of who they owe to instead
+					of grid
+				-->
+				
+				PersistanceManager bills = PMF.get().getPersistenceManager();
+				String house = "select from whoowesme.House";
+				
 				
 				<br><br>
 				<h2>GROCERY LIST</h2>
