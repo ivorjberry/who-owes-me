@@ -13,13 +13,13 @@ import com.google.appengine.api.datastore.Key;
 
 @PersistenceCapable
 public class House {
-	int numPeople;
+	private int numPeople;
 	@PrimaryKey
 	@Persistent(valueStrategy= IdGeneratorStrategy.IDENTITY)
 	Key key;
 	
 	@Persistent	
-	Integer[][] houseGrid;
+	Vector<Bill> houseGrid;
 	
 	@Persistent
 	List<User> housemates;
@@ -48,24 +48,47 @@ public class House {
             }
         }
 	}
-	
-	class Bill{
-		String PersonOwed;
-		String PersonOwes;
-		int amount;
-		Bill(String Owed, String Owes, int amt)
-		{
-			PersonOwed = Owed;
-			PersonOwes = Owes;
-			amount = amt;
-		}
-		
-		void addAmt(int amt)
-		{
-			amount += amt;
-		}
-		
+	public int getNumPeople()
+	{
+		return numPeople;
 	}
+	public User getUser(int index)
+	{
+		return housemates.get(index);
+	}
+	public List<Bill> getOwed(User in)
+	{
+		List<Bill> out = new ArrayList<Bill>();
+		
+		for(int i = 0; i < houseGrid.size(); i++)
+		{
+			
+			if(houseGrid.get(i).PersonOwed == in)
+			{
+				out.add(houseGrid.get(i));
+			}
+		}
+		
+		return out;
+	}
+	
+	public List<Bill> getOwes(User in)
+	{
+		List<Bill> out = new ArrayList<Bill>();
+		
+		for(int i = 0; i < houseGrid.size(); i++)
+		{
+			
+			if(houseGrid.get(i).PersonOwes == in)
+			{
+				out.add(houseGrid.get(i));
+			}
+		}
+		
+		return out;
+	}
+
 	
 
 }
+

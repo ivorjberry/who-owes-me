@@ -21,6 +21,11 @@
   	<servlet-class>whoowesme.HouseServlet</servlet-class>
   </servlet>
   
+  <servlet>
+  	<servlet-name>addBillServlet</servlet-name>
+  	<servlet-class>whoowesme.AddBillServlet</servlet-class>
+  </servlet>
+  
   <servlet-mapping>
     <servlet-name>groceryServlet</servlet-name>
     <url-pattern>/addToGrocery</url-pattern>
@@ -31,7 +36,11 @@
   </servlet-mapping>
   <servlet-mapping>
   	<servlet-name>houseServlet</servlet-name>
-  	<url-pattern>/addOwe</url-pattern>
+  	<url-pattern>/addHouse</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>addBillServlet</servlet-name>
+  	<url-pattern>/addBill</url-pattern>
   </servlet-mapping>
   
   
