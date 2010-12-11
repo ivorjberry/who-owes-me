@@ -5,6 +5,8 @@
 <%@page import="com.google.appengine.api.users.UserServiceFactory" %>
 <%@ page import="javax.jdo.PersistenceManager" %>
 <%@ page import="whoowesme.Grocery" %>
+<%@ page import ="whoowesme.House" %>
+<%@ page import = "whoowesme.Bill" %>
 <%@ page import="whoowesme.PMF" %>
 <%@ page import="java.util.List" %>
 
@@ -21,6 +23,7 @@
 			<%
 			UserService userService = UserServiceFactory.getUserService();
 			User user = userService.getCurrentUser();
+			House theHouse = null;
 			
 			if(user == null){
 				String url = userService.createLoginURL(request.getRequestURI());
@@ -44,23 +47,84 @@
 					</span>
 				</p>
 				
-				<h2>SUBMIT BILL</h2>
-				<form action="/addOwe" method="post">
-					Amount---->	<input type="text" name="amount"><br>
-					Who------->	<input select name="dropdown"><br>
-					What For-->	<input type="text" name="itemName"><br>
-						
-					<input type="submit" value="Submit Bill">
-				</form>
+				
+				
+
 				
 				<!--  Need to add display of bills here 
 					Maybe should be just a list of who they owe to instead
 					of grid
 				-->
-				
-				PersistanceManager bills = PMF.get().getPersistenceManager();
+				<%
+				PersistenceManager pm = PMF.get().getPersistenceManager();
 				String house = "select from whoowesme.House";
 				
+				List<House> houseList = (List<House>)pm.newQuery(house).execute();
+				
+				for(House h:houseList)
+				{
+					int numPeople = h.getNumPeople();
+					for(int i = 0; i < numPeople; i++)
+					{
+						if(h.getUser(i) == user)
+						{
+							theHouse = h;
+							break;
+						}
+					}
+					if(theHouse != null)
+					{
+						break;
+					}
+				}
+				
+				if(theHouse == null)
+				{
+					//create add house form
+					%>
+					<form action = "/addHouse" method="post">
+						House Name (Optional)<input type = "text" name = "houseName">
+						<input type = "submit" value = "Add House">
+					</form>
+					<%
+				}
+				else
+				{
+					
+					%>
+					<h2>SUBMIT BILL/PAYMENT</h2>
+						<form action="/addBill" method="post">
+						Amount---->	<input type="text" name="amount"><br>
+						Who------->	<input select name="dropdown"><br>
+						What For-->	<input type="text" name="itemName"><br>
+						
+						<input type="submit" value="Submit Bill">
+					</form>
+					
+					<h2>Who Owes You</h2>
+					<%
+					//print out who owes user
+					List<Bill> owes = theHouse.getOwes(user);
+					%>
+					<p>
+       				<table>
+       				<tr><td width="300"><b>Who Owes</b></td><td width="200"><b>Amount</b></td>
+       				<%
+       				for(Bill b:owes){
+       				%>
+       					<tr>
+       					<td><%= b.getOwes().getNickname() %></td><td><%= b.getAmt() %></td>
+						</tr>
+					<%} %>
+					</table>
+   					</p>
+					%>
+					<h2>Who You Owe</h2>
+					<%
+					//print out who user owes
+					
+				}
+				%>
 				
 				<br><br>
 				<h2>GROCERY LIST</h2>
@@ -70,7 +134,6 @@
 				</form>
 				
 				<% 
-				PersistenceManager pm = PMF.get().getPersistenceManager();
 	  		    String query = "select from whoowesme.Grocery";
 	  		    List<Grocery> groceryList = (List<Grocery>)pm.newQuery(query).execute();
       
