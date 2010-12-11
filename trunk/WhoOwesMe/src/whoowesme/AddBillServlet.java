@@ -14,23 +14,24 @@ public class AddBillServlet extends HttpServlet{
 		User user = userService.getCurrentUser();
 		
 		
-		String content = req.getParameter("msg");
+		int amount = Integer.parseInt(req.getParameter("amount"));
+		String Owes = req.getParameter("owes");
+		String whatFor = req.getParameter("itemName");
 		Date date = new Date();
 		
-		//Store House content
-		//House thisHouse = new House(user.getNickname() + "'s House");
-		//Bill thisBill = new Bill()
+		//Need to find what house we are looking for;
+		for(House h:)
 		
-		/*
-		// Store the grocery entry 
-		Grocery g = new Grocery(user, content, new Date());
+		//Need to get Owes as a user or change Bill to string instead of user
+		Bill b = new Bill(user, Owes, amount);
+
 		PersistenceManager pm = PMF.get().getPersistenceManager();
 		try{
-			pm.makePersistent(g);
+			pm.makePersistent(b);
 		}finally{
 			pm.close();
 		}
-		*/
+
 		resp.sendRedirect("/whoowesme.jsp");
 	}
 }

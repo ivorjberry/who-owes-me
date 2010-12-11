@@ -14,23 +14,18 @@ public class HouseServlet extends HttpServlet{
 		User user = userService.getCurrentUser();
 		
 		
-		String content = req.getParameter("msg");
-		Date date = new Date();
+		String houseName = req.getParameter("houseName");
+		
 		
 		//Store House content
-		//House thisHouse = new House(user.getNickname() + "'s House");
-		//Bill thisBill = new Bill()
-		
-		/*
-		// Store the grocery entry 
-		Grocery g = new Grocery(user, content, new Date());
+		House thisHouse = new House(houseName);
 		PersistenceManager pm = PMF.get().getPersistenceManager();
 		try{
-			pm.makePersistent(g);
+			pm.makePersistent(thisHouse);
 		}finally{
 			pm.close();
 		}
-		*/
+
 		resp.sendRedirect("/whoowesme.jsp");
 	}
 }
