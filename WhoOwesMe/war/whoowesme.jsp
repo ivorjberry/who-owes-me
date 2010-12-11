@@ -2,11 +2,11 @@
     pageEncoding="ISO-8859-1"%>
 <%@ page import="com.google.appengine.api.users.User" %>
 <%@ page import="com.google.appengine.api.users.UserService" %>
-<%@page import="com.google.appengine.api.users.UserServiceFactory" %>
+<%@ page import="com.google.appengine.api.users.UserServiceFactory" %>
 <%@ page import="javax.jdo.PersistenceManager" %>
 <%@ page import="whoowesme.Grocery" %>
-<%@ page import ="whoowesme.House" %>
-<%@ page import = "whoowesme.Bill" %>
+<%@ page import="whoowesme.House" %>
+<%@ page import="whoowesme.Bill" %>
 <%@ page import="whoowesme.PMF" %>
 <%@ page import="java.util.List" %>
 
@@ -48,13 +48,6 @@
 				</p>
 				
 				
-				
-
-				
-				<!--  Need to add display of bills here 
-					Maybe should be just a list of who they owe to instead
-					of grid
-				-->
 				<%
 				PersistenceManager pm = PMF.get().getPersistenceManager();
 				String house = "select from whoowesme.House";
@@ -95,7 +88,7 @@
 					<h2>SUBMIT BILL/PAYMENT</h2>
 						<form action="/addBill" method="post">
 						Amount---->	<input type="text" name="amount"><br>
-						Who------->	<input select name="dropdown"><br>
+						Who------->	<input type="text" name="owes"><br>
 						What For-->	<input type="text" name="itemName"><br>
 						
 						<input type="submit" value="Submit Bill">
@@ -118,10 +111,24 @@
 					<%} %>
 					</table>
    					</p>
-					%>
 					<h2>Who You Owe</h2>
 					<%
 					//print out who user owes
+					List<Bill> owed = theHouse.getOwed(user);
+					%>
+					<p>
+					<table>
+					<tr><td width = "300"><b>Who You Owe</b></td><td width ="200"><b>Amount</b></td>
+					<%
+					for(Bill b:owed)
+	       			%>
+   						<tr>
+   						<td><%= b.getOwes().getNickname() %></td><td><%= b.getAmt() %></td>
+						</tr>
+					<%} %>
+					</table>
+					</p>
+					<%
 					
 				}
 				%>
