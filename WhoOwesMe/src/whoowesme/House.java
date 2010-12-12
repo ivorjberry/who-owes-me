@@ -13,7 +13,7 @@ import com.google.appengine.api.datastore.Key;
 
 @PersistenceCapable
 public class House {
-	private int numPeople;
+
 	@PrimaryKey
 	@Persistent(valueStrategy= IdGeneratorStrategy.IDENTITY)
 	Key key;
@@ -29,29 +29,15 @@ public class House {
 	
 	public House(String hn){
 		housename = hn;
-		numPeople = 0;
 	}
-	public void addHousemate(){
-		numPeople++;
-	}
-	public void addBill(User user, User billed, Integer amt, String item){
+
+	public void addBill(String user, String billed, Integer amt, String item){
 		
-		PersistenceManager pm = PMF.get().getPersistenceManager();
-		Transaction txn = pm.currentTransaction();
-		try{
-			txn.begin();
-			//put in the servlet??
-			txn.commit();
-		}finally {
-            if (txn.isActive()) {
-                txn.rollback();
-            }
-        }
+		Bill b = new Bill(user, billed, amt, item);
+		houseGrid.add(b);
 	}
-	public int getNumPeople()
-	{
-		return numPeople;
-	}
+
+	//Useless?
 	public User getUser(int index)
 	{
 		return housemates.get(index);
@@ -63,7 +49,7 @@ public class House {
 		for(int i = 0; i < houseGrid.size(); i++)
 		{
 			
-			if(houseGrid.get(i).PersonOwed == in)
+			if(houseGrid.get(i).PersonOwed == in.getNickname())
 			{
 				out.add(houseGrid.get(i));
 			}
@@ -79,7 +65,7 @@ public class House {
 		for(int i = 0; i < houseGrid.size(); i++)
 		{
 			
-			if(houseGrid.get(i).PersonOwes == in)
+			if(houseGrid.get(i).PersonOwes == in.getNickname())
 			{
 				out.add(houseGrid.get(i));
 			}
@@ -87,8 +73,5 @@ public class House {
 		
 		return out;
 	}
-
-	
-
 }
 

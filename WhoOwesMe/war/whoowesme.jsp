@@ -56,10 +56,11 @@
 				
 				for(House h:houseList)
 				{
-					int numPeople = h.getNumPeople();
-					for(int i = 0; i < numPeople; i++)
+					int numBills = h.houseGrid.size();
+					for(int i = 0; i < numBills; i++)
 					{
-						if(h.getUser(i) == user)
+						if(h.houseGrid.get(i).PersonOwed == user.getNickname()
+							|| h.houseGrid.get(i).PersonOwes == user.getNickname())
 						{
 							theHouse = h;
 							break;
@@ -77,6 +78,7 @@
 					%>
 					<form action = "/addHouse" method="post">
 						House Name (Optional)<input type = "text" name = "houseName">
+						Number of members<input type = "text" name = "numPeople">
 						<input type = "submit" value = "Add House">
 					</form>
 					<%
@@ -85,7 +87,7 @@
 				{
 					
 					%>
-					<h2>SUBMIT BILL/PAYMENT</h2>
+					<h2>SUBMIT BILL or PAYMENT</h2>
 						<form action="/addBill" method="post">
 						Amount---->	<input type="text" name="amount"><br>
 						Who------->	<input type="text" name="owes"><br>
@@ -106,11 +108,10 @@
        				for(Bill b:owes){
        				%>
        					<tr>
-       					<td><%= b.getOwes().getNickname() %></td><td><%= b.getAmt() %></td>
+       					<td><%= b.getOwes() %></td><td><%= b.getAmt() %></td>
 						</tr>
 					<%} %>
 					</table>
-   					</p>
 					<h2>Who You Owe</h2>
 					<%
 					//print out who user owes
@@ -123,11 +124,10 @@
 					for(Bill b:owed)
 	       			%>
    						<tr>
-   						<td><%= b.getOwes().getNickname() %></td><td><%= b.getAmt() %></td>
+   						<td><%= b.getOwes() %></td><td><%= b.getAmt() %></td>
 						</tr>
 					<%} %>
 					</table>
-					</p>
 					<%
 					
 				}

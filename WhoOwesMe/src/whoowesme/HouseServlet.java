@@ -15,7 +15,7 @@ public class HouseServlet extends HttpServlet{
 		
 		
 		String houseName = req.getParameter("houseName");
-		
+		int numPeople = Integer.parseInt(req.getParameter("numPeople"));
 		
 		//Store House content
 		House thisHouse = new House(houseName);
