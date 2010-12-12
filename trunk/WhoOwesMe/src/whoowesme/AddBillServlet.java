@@ -51,8 +51,8 @@ public class AddBillServlet extends HttpServlet{
 			int numBills = h.houseGrid.size();
 			for(int i = 0; i < numBills; i++)
 			{
-				if(h.houseGrid.get(i).PersonOwed == user.getNickname()
-					|| h.houseGrid.get(i).PersonOwes == user.getNickname())
+				if(h.houseGrid.get(i).getOwed() == user.getNickname()
+					|| h.houseGrid.get(i).getOwes() == user.getNickname())
 				{
 					theHouse = h;
 					break;
@@ -66,9 +66,23 @@ public class AddBillServlet extends HttpServlet{
 		if(theHouse == null)
 		{
 			//House doesn't exist!
+			//What should we do here?
 			return;
 		}
-		theHouse.addBill(user.getNickname(), Owes, amount, whatFor);
+		boolean billExists = false;
+		for(int i = 0; i < theHouse.houseGrid.size(); i++)
+		{
+			if(theHouse.houseGrid.get(i).getOwed() == user.getNickname() &&
+				theHouse.houseGrid.get(i).getOwes() == Owes)
+				{
+					theHouse.houseGrid.get(i).addAmt(amount);
+					billExists = true;
+				}
+		}
+		if(!billExists)
+		{
+			theHouse.addBill(user.getNickname(), Owes, amount, whatFor);
+		}
 
 		try{
 			pm.makePersistent(theHouse);

@@ -49,7 +49,7 @@ public class House {
 		for(int i = 0; i < houseGrid.size(); i++)
 		{
 			
-			if(houseGrid.get(i).PersonOwed == in.getNickname())
+			if(houseGrid.get(i).getOwed() == in.getNickname())
 			{
 				out.add(houseGrid.get(i));
 			}
@@ -65,7 +65,7 @@ public class House {
 		for(int i = 0; i < houseGrid.size(); i++)
 		{
 			
-			if(houseGrid.get(i).PersonOwes == in.getNickname())
+			if(houseGrid.get(i).getOwes() == in.getNickname())
 			{
 				out.add(houseGrid.get(i));
 			}
