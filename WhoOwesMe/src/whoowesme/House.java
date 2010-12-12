@@ -19,7 +19,7 @@ public class House {
 	Key key;
 	
 	@Persistent	
-	Vector<Bill> houseGrid;
+	public Vector<Bill> houseGrid;
 	
 	@Persistent
 	List<User> housemates;
