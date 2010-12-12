@@ -5,8 +5,8 @@
 <%@ page import="com.google.appengine.api.users.UserServiceFactory" %>
 <%@ page import="javax.jdo.PersistenceManager" %>
 <%@ page import="whoowesme.Grocery" %>
-<%@ page import="whoowesme.House" %>
 <%@ page import="whoowesme.Bill" %>
+<%@ page import="whoowesme.House" %>
 <%@ page import="whoowesme.PMF" %>
 <%@ page import="java.util.List" %>
 
@@ -59,8 +59,8 @@
 					int numBills = h.houseGrid.size();
 					for(int i = 0; i < numBills; i++)
 					{
-						if(h.houseGrid.get(i).PersonOwed == user.getNickname()
-							|| h.houseGrid.get(i).PersonOwes == user.getNickname())
+						if(h.houseGrid.get(i).getOwed() == user.getNickname()
+							|| h.houseGrid.get(i).getOwes() == user.getNickname())
 						{
 							theHouse = h;
 							break;
@@ -83,8 +83,7 @@
 					</form>
 					<%
 				}
-				else
-				{
+				else{
 					
 					%>
 					<h2>SUBMIT BILL or PAYMENT</h2>
@@ -121,7 +120,7 @@
 					<table>
 					<tr><td width = "300"><b>Who You Owe</b></td><td width ="200"><b>Amount</b></td>
 					<%
-					for(Bill b:owed)
+					for(Bill b:owed){
 	       			%>
    						<tr>
    						<td><%= b.getOwes() %></td><td><%= b.getAmt() %></td>
@@ -174,7 +173,7 @@
 				<form action="/emptyGrocery" method="post">
 					<input type="submit" value="Empty List">
 				</form>
-				<%} %>
+			<%} %>
 						
 		</center>
 	</body>
