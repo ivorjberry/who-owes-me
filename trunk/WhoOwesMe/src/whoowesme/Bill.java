@@ -1,16 +1,16 @@
 package whoowesme;
 
-import com.google.appengine.api.users.User;
-
 public class Bill{
-	User PersonOwed;
-	User PersonOwes;
+	String PersonOwed;
+	String PersonOwes;
 	int amount;
-	public Bill(User Owed, User Owes, int amt)
+	String whatFor;
+	public Bill(String Owed, String Owes, int amt, String whFor)
 	{
 		PersonOwed = Owed;
 		PersonOwes = Owes;
 		amount = amt;
+		whatFor = whFor;
 	}
 	
 	public void addAmt(int amt)
@@ -21,11 +21,11 @@ public class Bill{
 	{
 		return amount;
 	}
-	public User getOwed()
+	public String getOwed()
 	{
 		return PersonOwed;
 	}
-	public User getOwes()
+	public String getOwes()
 	{
 		return PersonOwes;
 	}
