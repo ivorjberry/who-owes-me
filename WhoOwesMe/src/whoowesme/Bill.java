@@ -1,10 +1,10 @@
 package whoowesme;
 
 public class Bill{
-	String PersonOwed;
-	String PersonOwes;
-	int amount;
-	String whatFor;
+	private String PersonOwed;
+	private String PersonOwes;
+	private int amount;
+	private String whatFor;
 	public Bill(String Owed, String Owes, int amt, String whFor)
 	{
 		PersonOwed = Owed;
