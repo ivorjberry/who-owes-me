@@ -54,21 +54,24 @@
 				
 				List<House> houseList = (List<House>)pm.newQuery(house).execute();
 				
-				for(House h:houseList)
+				if(houseList != null)
 				{
-					int numBills = h.houseGrid.size();
-					for(int i = 0; i < numBills; i++)
+					for(House h:houseList)
 					{
-						if(h.houseGrid.get(i).getOwed() == user.getNickname()
-							|| h.houseGrid.get(i).getOwes() == user.getNickname())
+						int numBills = h.houseGrid.size();
+						for(int i = 0; i < numBills; i++)
 						{
-							theHouse = h;
+							if(h.houseGrid.get(i).getOwed() == user.getNickname()
+								|| h.houseGrid.get(i).getOwes() == user.getNickname())
+							{
+								theHouse = h;
+								break;
+							}
+						}
+						if(theHouse != null)
+						{
 							break;
 						}
-					}
-					if(theHouse != null)
-					{
-						break;
 					}
 				}
 				
@@ -78,7 +81,6 @@
 					%>
 					<form action = "/addHouse" method="post">
 						House Name (Optional)<input type = "text" name = "houseName">
-						Number of members<input type = "text" name = "numPeople">
 						<input type = "submit" value = "Add House">
 					</form>
 					<%
