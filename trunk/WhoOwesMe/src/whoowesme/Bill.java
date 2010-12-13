@@ -3,9 +3,9 @@ package whoowesme;
 public class Bill{
 	private String PersonOwed;
 	private String PersonOwes;
-	private int amount;
+	private double amount;
 	private String whatFor;
-	public Bill(String Owed, String Owes, int amt, String whFor)
+	public Bill(String Owed, String Owes, double amt, String whFor)
 	{
 		PersonOwed = Owed;
 		PersonOwes = Owes;
@@ -13,11 +13,11 @@ public class Bill{
 		whatFor = whFor;
 	}
 	
-	public void addAmt(int amt)
+	public void addAmt(double amt)
 	{
 		amount += amt;
 	}
-	public int getAmt()
+	public double getAmt()
 	{
 		return amount;
 	}

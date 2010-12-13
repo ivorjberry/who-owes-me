@@ -10,6 +10,7 @@ import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 import java.io.*;
 import com.google.appengine.api.datastore.Key;
+import whoowesme.Bill;
 
 @PersistenceCapable
 public class House {
@@ -19,29 +20,22 @@ public class House {
 	Key key;
 	
 	@Persistent	
-	public Vector<Bill> houseGrid;
-	
-	@Persistent
-	List<User> housemates;
+	public List<Bill> houseGrid;
 	
 	@Persistent
 	String housename;
 	
 	public House(String hn){
 		housename = hn;
+		houseGrid = new ArrayList<Bill>();
 	}
 
-	public void addBill(String user, String billed, Integer amt, String item){
+	public void addBill(String user, String billed, double amt, String item){
 		
 		Bill b = new Bill(user, billed, amt, item);
 		houseGrid.add(b);
 	}
 
-	//Useless?
-	public User getUser(int index)
-	{
-		return housemates.get(index);
-	}
 	public List<Bill> getOwed(User in)
 	{
 		List<Bill> out = new ArrayList<Bill>();
@@ -72,6 +66,18 @@ public class House {
 		}
 		
 		return out;
+	}
+	public int getNumBills()
+	{
+		return houseGrid.size();
+	}
+	public String getPersonOwed(int i)
+	{
+		return houseGrid.get(i).getOwed();
+	}
+	public String getPersonOwes(int i)
+	{
+		return houseGrid.get(i).getOwes();
 	}
 }
 
