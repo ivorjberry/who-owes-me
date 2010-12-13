@@ -51,18 +51,22 @@
 				<%
 				PersistenceManager pm = PMF.get().getPersistenceManager();
 				String house = "select from whoowesme.House";
-				
+				//pm.newQuery(house).deletePersistentAll();
 				List<House> houseList = (List<House>)pm.newQuery(house).execute();
 				
-				if(houseList != null)
+				if(!houseList.isEmpty())
 				{
 					for(House h:houseList)
 					{
-						int numBills = h.houseGrid.size();
+						int numBills = 0;//h.houseGrid.size();
+						int testBills = h.getNumBills();
+						%>
+						<h2><%=testBills %></h2>
+						<%
 						for(int i = 0; i < numBills; i++)
 						{
-							if(h.houseGrid.get(i).getOwed() == user.getNickname()
-								|| h.houseGrid.get(i).getOwes() == user.getNickname())
+							if(h.getPersonOwed(i) == user.getNickname()
+								|| h.getPersonOwes(i) == user.getNickname())
 							{
 								theHouse = h;
 								break;

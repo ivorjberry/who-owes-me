@@ -6,6 +6,7 @@ import javax.servlet.http.*;
 import com.google.appengine.api.users.*;
 import java.io.*;
 import java.util.Date;
+import whoowesme.Bill;
 
 public class HouseServlet extends HttpServlet{
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
@@ -19,6 +20,7 @@ public class HouseServlet extends HttpServlet{
 		
 		//Store House content
 		House thisHouse = new House(houseName);
+		thisHouse.addBill(user.getNickname(), user.getNickname(), 0.0, "init");
 		PersistenceManager pm = PMF.get().getPersistenceManager();
 		try{
 			pm.makePersistent(thisHouse);
