@@ -28,6 +28,7 @@ public class House {
 	public House(String hn){
 		housename = hn;
 		houseGrid = new ArrayList<Bill>();
+		addBill(housename, housename, 0.0, "init");
 	}
 
 	public void addBill(String user, String billed, double amt, String item){

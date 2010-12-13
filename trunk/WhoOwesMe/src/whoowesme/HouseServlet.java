@@ -15,12 +15,11 @@ public class HouseServlet extends HttpServlet{
 		User user = userService.getCurrentUser();
 		
 		
-		String houseName = req.getParameter("houseName");
+		String houseName = user.getNickname();
 		//int numPeople = Integer.parseInt(req.getParameter("numPeople"));
 		
 		//Store House content
 		House thisHouse = new House(houseName);
-		thisHouse.addBill(user.getNickname(), user.getNickname(), 0.0, "init");
 		PersistenceManager pm = PMF.get().getPersistenceManager();
 		try{
 			pm.makePersistent(thisHouse);
