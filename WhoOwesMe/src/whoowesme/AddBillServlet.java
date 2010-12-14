@@ -16,7 +16,7 @@ public class AddBillServlet extends HttpServlet{
 		User user = userService.getCurrentUser();
 		
 		
-		int amount = Integer.parseInt(req.getParameter("amount"));
+		double amount = Double.parseDouble(req.getParameter("amount"));
 		String Owes = req.getParameter("owes");
 		String whatFor = req.getParameter("itemName");
 	
@@ -27,40 +27,24 @@ public class AddBillServlet extends HttpServlet{
 		List<House> houseList = (List<House>)pm.newQuery(house).execute();
 		House theHouse = null;
 		
-		/*  Old way.  Should just look through list of bills
-		for(House h:houseList)
+		if(!houseList.isEmpty())
 		{
-			int numPeople = h.getNumPeople();
-			for(int i = 0; i < numPeople; i++)
+			for(House h:houseList)
 			{
-				if(h.getUser(i) == user)
+				int numBills = h.getNumBills();
+				for(int i = 0; i < numBills; i++)
 				{
-					theHouse = h;
+					if(h.getPersonOwed(i).equalsIgnoreCase(user.getNickname())
+							|| h.getPersonOwes(i).equalsIgnoreCase(user.getNickname()))
+					{
+						theHouse = h;
+						break;
+					}
+				}
+				if(theHouse != null)
+				{
 					break;
 				}
-			}
-			if(theHouse != null)
-			{
-				break;
-			}
-		}
-		*/
-		
-		for(House h:houseList)
-		{
-			int numBills = h.houseGrid.size();
-			for(int i = 0; i < numBills; i++)
-			{
-				if(h.houseGrid.get(i).getOwed() == user.getNickname()
-					|| h.houseGrid.get(i).getOwes() == user.getNickname())
-				{
-					theHouse = h;
-					break;
-				}
-			}
-			if(theHouse != null)
-			{
-				break;
 			}
 		}
 		if(theHouse == null)
@@ -69,20 +53,10 @@ public class AddBillServlet extends HttpServlet{
 			//What should we do here?
 			return;
 		}
-		boolean billExists = false;
-		for(int i = 0; i < theHouse.houseGrid.size(); i++)
-		{
-			if(theHouse.houseGrid.get(i).getOwed() == user.getNickname() &&
-				theHouse.houseGrid.get(i).getOwes() == Owes)
-				{
-					theHouse.houseGrid.get(i).addAmt(amount);
-					billExists = true;
-				}
-		}
-		if(!billExists)
-		{
-			theHouse.addBill(user.getNickname(), Owes, amount, whatFor);
-		}
+
+		//This function add the amount to the bill if it exists,
+		//makes a new one if it doesn't exist.
+		theHouse.AddEditBill(user.getNickname(), Owes, amount, whatFor);
 
 		try{
 			pm.makePersistent(theHouse);

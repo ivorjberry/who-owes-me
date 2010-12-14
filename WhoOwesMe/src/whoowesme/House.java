@@ -36,6 +36,23 @@ public class House {
 		Bill b = new Bill(user, billed, amt, item);
 		houseGrid.add(b);
 	}
+	public void AddEditBill(String owed, String owes, double amt, String item)
+	{
+		boolean billFound = false;
+		for(Bill b:houseGrid)
+		{
+			if(b.getOwed().equalsIgnoreCase(owed) && b.getOwes().equalsIgnoreCase(owes))
+			{
+				b.addAmt(amt);
+				billFound = true;
+				break;
+			}
+		}
+		if(!billFound)
+		{
+			addBill(owed, owes, amt, item);
+		}
+	}
 
 	public List<Bill> getOwed(User in)
 	{
@@ -44,7 +61,7 @@ public class House {
 		for(int i = 0; i < houseGrid.size(); i++)
 		{
 			
-			if(houseGrid.get(i).getOwed() == in.getNickname())
+			if(houseGrid.get(i).getOwed().equalsIgnoreCase(in.getNickname()))
 			{
 				out.add(houseGrid.get(i));
 			}
@@ -60,7 +77,7 @@ public class House {
 		for(int i = 0; i < houseGrid.size(); i++)
 		{
 			
-			if(houseGrid.get(i).getOwes() == in.getNickname())
+			if(houseGrid.get(i).getOwes().equalsIgnoreCase(in.getNickname()))
 			{
 				out.add(houseGrid.get(i));
 			}

@@ -63,10 +63,10 @@
 						%>
 						<h2><%=testBills %></h2>
 						<%
-						for(int i = 0; i < numBills; i++)
+						for(int i = 0; i < testBills; i++)
 						{
-							if(h.getPersonOwed(i) == user.getNickname()
-								|| h.getPersonOwes(i) == user.getNickname())
+							if(h.getPersonOwed(i).equalsIgnoreCase(user.getNickname())
+								|| h.getPersonOwes(i).equalsIgnoreCase(user.getNickname()))
 							{
 								theHouse = h;
 								break;
@@ -103,8 +103,8 @@
 					
 					<h2>Who Owes You</h2>
 					<%
-					//print out who owes user
-					List<Bill> owes = theHouse.getOwes(user);
+					//print out who owes user means bills that are owed to user
+					List<Bill> owes = theHouse.getOwed(user);
 					%>
 					<p>
        				<table>
@@ -120,7 +120,7 @@
 					<h2>Who You Owe</h2>
 					<%
 					//print out who user owes
-					List<Bill> owed = theHouse.getOwed(user);
+					List<Bill> owed = theHouse.getOwes(user);
 					%>
 					<p>
 					<table>
@@ -129,7 +129,7 @@
 					for(Bill b:owed){
 	       			%>
    						<tr>
-   						<td><%= b.getOwes() %></td><td><%= b.getAmt() %></td>
+   						<td><%= b.getOwed() %></td><td><%= b.getAmt() %></td>
 						</tr>
 					<%} %>
 					</table>

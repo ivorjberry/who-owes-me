@@ -1,4 +1,10 @@
-<!-- Indices written at Mon, 13 Dec 2010 10:05:09 UTC -->
+<!-- Indices written at Tue, 14 Dec 2010 10:02:11 UTC -->
 
-<datastore-indexes/>
+<datastore-indexes>
 
+    <!-- Used 4 times in query history -->
+    <datastore-index kind="Bill" ancestor="true" source="auto">
+        <property name="houseGrid_INTEGER_IDX" direction="asc"/>
+    </datastore-index>
+
+</datastore-indexes>
