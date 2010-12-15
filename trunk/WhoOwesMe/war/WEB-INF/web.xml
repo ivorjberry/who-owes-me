@@ -26,6 +26,17 @@
   	<servlet-class>whoowesme.AddBillServlet</servlet-class>
   </servlet>
   
+  <servlet>
+  	<servlet-name>deleteHouseServlet</servlet-name>
+  	<servlet-class>whoowesme.DeleteHouseServlet</servlet-class>
+  </servlet>
+  
+  <servlet>
+  	<servlet-name>addMemberServlet</servlet-name>
+  	<servlet-class>whoowesme.AddMemberServlet</servlet-class>
+  </servlet>
+  
+  
   <servlet-mapping>
     <servlet-name>groceryServlet</servlet-name>
     <url-pattern>/addToGrocery</url-pattern>
@@ -41,6 +52,14 @@
   <servlet-mapping>
   	<servlet-name>addBillServlet</servlet-name>
   	<url-pattern>/addBill</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>deleteHouseServlet</servlet-name>
+  	<url-pattern>/deleteHouse</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>addMemberServlet</servlet-name>
+  	<url-pattern>/addHouseMate</url-pattern>
   </servlet-mapping>
   
   

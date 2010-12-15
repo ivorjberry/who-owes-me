@@ -12,7 +12,7 @@ import java.io.*;
 import java.util.Date;
 import java.util.List;
 
-public class GroceryEmptyList extends HttpServlet{
+public class DeleteHouseServlet extends HttpServlet{
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
 	throws IOException{
 		UserService userService = UserServiceFactory.getUserService();
@@ -20,13 +20,15 @@ public class GroceryEmptyList extends HttpServlet{
 		
 		PersistenceManager pm = PMF.get().getPersistenceManager();
 		String house = "select from whoowesme.House";
+		String houseName = req.getParameter("housename");
+		House theHouse = null;
 		
 		Transaction tx = pm.currentTransaction();
 		try{
 		
 			tx.begin();
 			List<House> houseList = (List<House>)pm.newQuery(house).execute();
-			House theHouse = null;
+			
 			
 			if(!houseList.isEmpty())
 			{
@@ -35,8 +37,7 @@ public class GroceryEmptyList extends HttpServlet{
 					int numBills = h.getNumBills();
 					for(int i = 0; i < numBills; i++)
 					{
-						if(h.getPersonOwed(i).equalsIgnoreCase(user)
-								|| h.getPersonOwes(i).equalsIgnoreCase(user))
+						if(h.getHouseName().equalsIgnoreCase(houseName))
 						{
 							theHouse = h;
 							break;
@@ -48,20 +49,10 @@ public class GroceryEmptyList extends HttpServlet{
 					}
 				}
 			}
-			if(theHouse == null)
+			if(theHouse != null)
 			{
-				//House doesn't exist!
-				//What should we do here?
-				//This should never happen, but just leaving a return here
-				//will exit as gracefully as we can if it does mess up
-				return;
+				pm.deletePersistent(theHouse);
 			}
-			// Store the grocery entry 
-			theHouse.emptyGrocery();
-			
-			pm.makePersistent(theHouse);
-			
-				
 			
 			tx.commit();
 		} finally{
