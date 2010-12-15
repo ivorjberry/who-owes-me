@@ -98,8 +98,7 @@ public class House {
 		{
 			Bill b = houseGrid.get(i);
 			if(b.getOwed().equalsIgnoreCase(in.getNickname()) && 
-					b.getAmt() != 0 && 
-					(b.getOwes().equalsIgnoreCase(b.getOwes())))
+					b.getAmt() != 0)
 			{
 				out.add(houseGrid.get(i));
 			}
@@ -115,9 +114,9 @@ public class House {
 		for(int i = 0; i < houseGrid.size(); i++)
 		{
 			Bill b = houseGrid.get(i);
+			
 			if(b.getOwes().equalsIgnoreCase(in.getNickname()) && 
-					b.getAmt() != 0 && 
-					(b.getOwes().equalsIgnoreCase(b.getOwes())))
+					b.getAmt() != 0)
 			{
 				out.add(houseGrid.get(i));
 			}

@@ -33,6 +33,15 @@
 			//pm.newQuery(house).deletePersistentAll();
 			List<House> houseList = (List<House>)pm.newQuery(house).execute();
 			
+			
+			//create add house form
+			%>
+			<form action = "/addHouse" method="post">
+				<input type="text" name="housename">
+				<input type = "submit" value = "Add House">
+			</form>
+			<%
+			
 			if(!houseList.isEmpty())
 			{
 				for(House myhouse:houseList)
@@ -49,22 +58,12 @@
 				}
 			}
 			
-			if(myHouses.isEmpty())
-			{
-				//create add house form
-				%>
-				<form action = "/addHouse" method="post">
-					<input type="text" name="housename">
-					<input type = "submit" value = "Add House">
-				</form>
-				<%
-			}
-			else{
+			if(!myHouses.isEmpty()){
 				for(House h:myHouses){
 					List<String> housemates = h.getAllHouseMates();
 					//get all members
 					%>
-					<h2><%=h.getHouseName() %></h2> 
+					<h2>House Name: <%=h.getHouseName() %></h2> 
 					<p>
 						<span>
 							Hello <b><%= user.getNickname() %></b>!<br>
@@ -90,7 +89,7 @@
 									<option value="<%=s %>"><%=s %></option>
 								<%} 
 							%>
-						</select>
+						</select><br>
 						What For-->	<input type="text" name="itemName"><br>
 						
 						<input type="submit" value="Submit Bill">
@@ -114,7 +113,7 @@
 	       				<%
 	       				for(Bill b:owes){
 	       					double billAmt = b.getAmt();
-	       					if (billAmt != 0 && ( b.getOwes().equalsIgnoreCase( b.getOwes() ) ) ){
+	       					if (billAmt != 0  ){
 		       				%>
 		       					<tr>
 		       					<td><%= b.getOwes() %></td><td><%= b.getAmt() %></td><td><%= b.getItem() %></td>
@@ -171,7 +170,7 @@
 	       			%>
 	       				<p>
 		       				<table>
-		       				<tr><td width="1000"><b>Item</b></td><td width="200"><b>Who</b></td><td width="500"><b>When</b></td></tr>
+		       				<tr><td width="500"><b>Item</b></td><td width="200"><b>Who</b></td><td width="300"><b>When</b></td></tr>
 		       			<%
 		       				for(Grocery g:groceryList){
 		       			%>
@@ -195,6 +194,11 @@
 						<input type="hidden" name="housename" value="<%=h.getHouseName() %>">
 						<input type="submit" value="Delete This House">
 					</form>
+					
+					<br><br><br>
+					----------------------------------------------------------End of House----------------------------------------------------------
+					<br><br><br>
+					<p>
 				<%} %>
 			<%} %>
 						
