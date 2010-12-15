@@ -4,19 +4,21 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
 import javax.servlet.*;
 import javax.servlet.http.*;
+import com.google.appengine.api.users.*;
 
-import com.google.appengine.api.users.UserService;
-import com.google.appengine.api.users.UserServiceFactory;
 
 import java.io.*;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
-public class GroceryEmptyList extends HttpServlet{
+public class AddMemberServlet extends HttpServlet{
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
 	throws IOException{
 		UserService userService = UserServiceFactory.getUserService();
 		String user = userService.getCurrentUser().getNickname();
+		
+		String houseName = req.getParameter("housename");
+		String newHouseMate = req.getParameter("name");
+	
 		
 		PersistenceManager pm = PMF.get().getPersistenceManager();
 		String house = "select from whoowesme.House";
@@ -35,8 +37,7 @@ public class GroceryEmptyList extends HttpServlet{
 					int numBills = h.getNumBills();
 					for(int i = 0; i < numBills; i++)
 					{
-						if(h.getPersonOwed(i).equalsIgnoreCase(user)
-								|| h.getPersonOwes(i).equalsIgnoreCase(user))
+						if(h.getHouseName().equalsIgnoreCase(houseName))
 						{
 							theHouse = h;
 							break;
@@ -56,21 +57,22 @@ public class GroceryEmptyList extends HttpServlet{
 				//will exit as gracefully as we can if it does mess up
 				return;
 			}
-			// Store the grocery entry 
-			theHouse.emptyGrocery();
+	
+			//This function add the amount to the bill if it exists,
+			//makes a new one if it doesn't exist.
+			theHouse.addHouseMate(newHouseMate);
+	
 			
 			pm.makePersistent(theHouse);
 			
-				
-			
 			tx.commit();
-		} finally{
+		} finally {
 			if (tx.isActive()) {
                 tx.rollback();
             }
 			pm.close();
 		}
-		
+
 		resp.sendRedirect("/whoowesme.jsp");
 	}
 }

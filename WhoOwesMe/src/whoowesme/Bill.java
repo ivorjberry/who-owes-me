@@ -54,4 +54,12 @@ public class Bill{
 	{
 		return PersonOwes;
 	}
+	public String getItem()
+	{
+		return whatFor;
+	}
+	public void changeItem(String in)
+	{
+		whatFor = in;
+	}
 }
