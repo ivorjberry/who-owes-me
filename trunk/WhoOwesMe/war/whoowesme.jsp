@@ -41,7 +41,7 @@
 					int numMembers = myhouse.getNumHouseMates();
 					for(int i = 0; i < numMembers; i++)
 					{
-						if(myhouse.getHouseMate(i) == user.getNickname())
+						if(myhouse.getHouseMate(i).equalsIgnoreCase(user.getNickname()))
 						{
 							myHouses.add(myhouse);
 						}

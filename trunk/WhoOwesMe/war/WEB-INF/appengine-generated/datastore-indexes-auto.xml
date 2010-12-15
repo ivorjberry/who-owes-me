@@ -1,13 +1,13 @@
-<!-- Indices written at Wed, 15 Dec 2010 00:50:28 UTC -->
+<!-- Indices written at Wed, 15 Dec 2010 03:53:26 UTC -->
 
 <datastore-indexes>
 
-    <!-- Used 17 times in query history -->
+    <!-- Used 49 times in query history -->
     <datastore-index kind="Bill" ancestor="true" source="auto">
         <property name="houseGrid_INTEGER_IDX" direction="asc"/>
     </datastore-index>
 
-    <!-- Used 3 times in query history -->
+    <!-- Used 22 times in query history -->
     <datastore-index kind="Grocery" ancestor="true" source="auto">
         <property name="groceryList_INTEGER_IDX" direction="asc"/>
     </datastore-index>
