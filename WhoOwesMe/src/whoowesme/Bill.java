@@ -3,12 +3,14 @@ package whoowesme;
 import com.google.appengine.api.users.*;
 import com.google.appengine.api.datastore.*;
 
+
+
 import java.util.Date;
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
-
+import java.text.*;
 @PersistenceCapable
 public class Bill{
 	
@@ -34,13 +36,13 @@ public class Bill{
 	{
 		PersonOwed = Owed;
 		PersonOwes = Owes;
-		amount = amt;
+		amount = roundTwoDecimals(amt);
 		whatFor = whFor;
 	}
 	
 	public void addAmt(double amt)
 	{
-		amount += amt;
+		amount += roundTwoDecimals(amt);
 	}
 	public double getAmt()
 	{
@@ -61,5 +63,11 @@ public class Bill{
 	public void changeItem(String in)
 	{
 		whatFor = in;
+	}
+	
+	public double roundTwoDecimals(double d)
+	{
+		DecimalFormat twoDForm = new DecimalFormat("#.##");
+		return Double.valueOf(twoDForm.format(d));
 	}
 }

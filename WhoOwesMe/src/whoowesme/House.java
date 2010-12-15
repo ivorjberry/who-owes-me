@@ -80,6 +80,7 @@ public class House {
 			if(b.getOwed().equalsIgnoreCase(owed) && b.getOwes().equalsIgnoreCase(owes))
 			{
 				b.addAmt(amt);
+				b.changeItem(item);
 				billFound = true;
 				break;
 			}
