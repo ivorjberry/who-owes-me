@@ -18,7 +18,7 @@ public class AddBillServlet extends HttpServlet{
 		
 		
 		double amount = Double.parseDouble(req.getParameter("amount"));
-		String Owes = req.getParameter("owes");
+		String Owes = req.getParameter("myhousemates");
 		String whatFor = req.getParameter("itemName");
 		String houseName = req.getParameter("housename");
 	
@@ -37,17 +37,9 @@ public class AddBillServlet extends HttpServlet{
 			{
 				for(House h:houseList)
 				{
-					int numBills = h.getNumBills();
-					for(int i = 0; i < numBills; i++)
+					if(h.getHouseName().equalsIgnoreCase(houseName))
 					{
-						if(h.getHouseName().equalsIgnoreCase(houseName))
-						{
-							theHouse = h;
-							break;
-						}
-					}
-					if(theHouse != null)
-					{
+						theHouse = h;
 						break;
 					}
 				}
@@ -74,8 +66,9 @@ public class AddBillServlet extends HttpServlet{
                 tx.rollback();
             }
 			pm.close();
+			resp.sendRedirect("/whoowesme.jsp");
 		}
 
-		resp.sendRedirect("/whoowesme.jsp");
+		
 	}
 }

@@ -20,7 +20,8 @@ public class GroceryEmptyList extends HttpServlet{
 		
 		PersistenceManager pm = PMF.get().getPersistenceManager();
 		String house = "select from whoowesme.House";
-		
+		String houseName = req.getParameter("housename");
+
 		Transaction tx = pm.currentTransaction();
 		try{
 		
@@ -32,15 +33,11 @@ public class GroceryEmptyList extends HttpServlet{
 			{
 				for(House h:houseList)
 				{
-					int numBills = h.getNumBills();
-					for(int i = 0; i < numBills; i++)
+
+					if(h.getHouseName().equalsIgnoreCase(houseName))
 					{
-						if(h.getPersonOwed(i).equalsIgnoreCase(user)
-								|| h.getPersonOwes(i).equalsIgnoreCase(user))
-						{
-							theHouse = h;
-							break;
-						}
+						theHouse = h;
+						break;
 					}
 					if(theHouse != null)
 					{
@@ -69,8 +66,9 @@ public class GroceryEmptyList extends HttpServlet{
                 tx.rollback();
             }
 			pm.close();
+			resp.sendRedirect("/whoowesme.jsp");
 		}
 		
-		resp.sendRedirect("/whoowesme.jsp");
+		
 	}
 }

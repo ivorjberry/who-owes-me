@@ -31,9 +31,10 @@ public class HouseServlet extends HttpServlet{
 		
 			tx.begin();
 			List<House> houseList = (List<House>)pm.newQuery(house).execute();
+			
+			int i = 1;
 			while(true){
 				boolean taken = false;
-				int i = 1;
 				for(House h:houseList)
 				{
 					if(h.getHouseName().equalsIgnoreCase(houseName))
@@ -48,6 +49,7 @@ public class HouseServlet extends HttpServlet{
 				else
 				{
 					houseName = houseName + "(" + i + ")";
+					i++;
 				}
 			}
 			

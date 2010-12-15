@@ -31,17 +31,9 @@ public class GroceryServlet extends HttpServlet{
 			{
 				for(House h:houseList)
 				{
-					int numBills = h.getNumBills();
-					for(int i = 0; i < numBills; i++)
+					if(h.getHouseName().equalsIgnoreCase(houseName))
 					{
-						if(h.getHouseName().equalsIgnoreCase(houseName))
-						{
-							theHouse = h;
-							break;
-						}
-					}
-					if(theHouse != null)
-					{
+						theHouse = h;
 						break;
 					}
 				}
@@ -64,8 +56,9 @@ public class GroceryServlet extends HttpServlet{
                 tx.rollback();
             }
 			pm.close();
+			resp.sendRedirect("/whoowesme.jsp");
 		}
 		
-		resp.sendRedirect("/whoowesme.jsp");
+		
 	}
 }
